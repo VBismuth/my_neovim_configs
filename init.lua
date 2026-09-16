@@ -1,6 +1,7 @@
 require('options')
 require('keymaps')
 require('plugins')
+require('config.nvim-web-devicons')
 require('colorscheme')
 require('lsp')
 

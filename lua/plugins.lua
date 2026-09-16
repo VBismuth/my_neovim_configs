@@ -77,6 +77,8 @@ require('lazy').setup({
     -- Tree-sitter - a tool to highlight structures
     {
         'nvim-treesitter/nvim-treesitter',
+        lazy=false,
+        build=':TSUpdate',
         config = function()
             require('config.nvim-treesitter')
         end,

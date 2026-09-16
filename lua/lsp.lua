@@ -101,8 +101,8 @@ lspconfig("pylsp", {
         pylsp = {
         plugins = {
                 -- formatter options
-                black = { enabled = false },
-                autopep8 = { enabled = true },
+                black = { enabled = true },
+                autopep8 = { enabled = false },
                 yapf = { enabled = false },
                 -- Linter options
                 pylint = { enabled = true, executable = "pylint" },
@@ -112,7 +112,8 @@ lspconfig("pylsp", {
                            exclude = ".git,__pycache__,docs/source/conf.py,old,build,dist",
                            maxComplexity = 10 },
                 pycodestyle = { enabled = true,
-                                ignore = { "E221" } },
+                                ignore = { "E221", "W504", "E502",
+                                           "E241"} },
                 -- Type ckecker
                 pylsp_mypy = { enabled = true },
                 -- Auto-completion options
