@@ -1,23 +1,3 @@
-require('mason').setup({
-    ui = {
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
-        }
-    },
-    registries = {
-            "github:mason-org/mason-registry",
-            "github:Crashdummyy/mason-registry",
-        },
-})
-
-require('mason-lspconfig').setup({
-    -- A list of language servers to automatically install, if they aren't already
-    ensure_installed = { 'pylsp', 'lua_ls'},
-    automatic_enable = false,
-})
-
 -- Set different settings for different languages' LSP
 -- LSP list: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- How to use setup({}): https://github.com/neovim/nvim-lspconfig/wiki/Understanding-setup-%7B%7D
@@ -25,14 +5,6 @@ require('mason-lspconfig').setup({
 --     - on_attach: a lua callback function to run after LSP attaches to a given buffer
 -- Updated from require('lspconfig') due to updates, see :help lsp-config
 local lspconfig = vim.lsp.config
-
--- Customized on_attach function
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true}) end, opts)
-vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true}) end, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -68,7 +40,7 @@ end
 -- How to add LSP for a specific language?
 -- 1. use `:Mason` to install corresponding LSP
 -- 2. add configuration below
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 lspconfig("lua_ls", {
     filetypes = { 'lua' },
     on_attach = on_attach,
@@ -144,17 +116,9 @@ lspconfig("rust_analyzer", {
 })
 vim.lsp.enable('rust_analyzer')
 
--- vlang v-analyzer lsp
-lspconfig("v_analyzer", {
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
-vim.lsp.enable('v_analyzer')
-
--- roslyn c# lsp config for roslyn plugin
-require('roslyn').setup({
-    config = {
-        capabilities = capabilities,
-        on_attach = on_attach,
-    },
-})
+-- -- vlang v-analyzer lsp
+-- lspconfig("v_analyzer", {
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+-- })
+-- vim.lsp.enable('v_analyzer')

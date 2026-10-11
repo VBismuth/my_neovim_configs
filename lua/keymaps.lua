@@ -1,3 +1,13 @@
+local function map_n(key, action, args)
+    vim.keymap.set('n', key, action, args)
+end
+local function map_i(key, action, args)
+    vim.keymap.set('i', key, action, args)
+end
+local function map_v(key, action, args)
+    vim.keymap.set('v', key, action, args)
+end
+
 -- define common options
 local opts = {
     noremap = true,
@@ -8,38 +18,51 @@ local opts = {
 -- Normal mode --
 -----------------
 
+-- Open oil file browser
+map_n('-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+
 -- Better window navigation
-vim.keymap.set('n', '<C-h>', '<C-w>h', opts)
-vim.keymap.set('n', '<C-j>', '<C-w>j', opts)
-vim.keymap.set('n', '<C-k>', '<C-w>k', opts)
-vim.keymap.set('n', '<C-l>', '<C-w>l', opts)
+map_n('<C-h>', '<C-w>h', opts)
+map_n('<C-j>', '<C-w>j', opts)
+map_n('<C-k>', '<C-w>k', opts)
+map_n('<C-l>', '<C-w>l', opts)
 
 -- Resize with arrows
 -- delta: 2 lines
-vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', opts)
-vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', opts)
-vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', opts)
-vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', opts)
+map_n('<C-Up>', ':resize -2<CR>', opts)
+map_n('<C-Down>', ':resize +2<CR>', opts)
+map_n('<C-Left>', ':vertical resize -2<CR>', opts)
+map_n('<C-Right>', ':vertical resize +2<CR>', opts)
 
 -- Back to the previous file
-vim.keymap.set('n', '<BS>', ':edit #<CR>', opts)
+map_n('<BS>', ':edit #<CR>', opts)
+
+-- LSP related keymaps
+map_n('<space>e', vim.diagnostic.open_float, opts)
+map_n('[d', function() vim.diagnostic.jump({ count = -1, float = true}) end, opts)
+map_n(']d', function() vim.diagnostic.jump({ count = 1, float = true}) end, opts)
+map_n('<space>q', vim.diagnostic.setloclist, opts)
 
 -----------------
 -- Insert mode --
 -----------------
 
 -- Better movement
-vim.keymap.set('i', '<C-k>', '<Up>', opts)
-vim.keymap.set('i', '<C-j>', '<Down>', opts)
-vim.keymap.set('i', '<C-h>', '<Left>', opts)
-vim.keymap.set('i', '<C-l>', '<Right>', opts)
+map_i('<C-k>', '<Up>', opts)
+map_i('<C-j>', '<Down>', opts)
+map_i('<C-h>', '<Left>', opts)
+map_i('<C-l>', '<Right>', opts)
 
 -- Keyboard layout switch
-vim.keymap.set('i', '<C-s>', '<C-^>', opts)
+map_i('<C-s>', '<C-^>', opts)
+
+-- Autocomplete using tab
+map_i('<TAB>', '<C-n>', opts)
+map_i('<S-TAB>', '<C-p>', opts)
 
 -----------------
 -- Visual mode --
 -----------------
 
-vim.keymap.set('v', '<', '<gv', opts)
-vim.keymap.set('v', '>', '>gv', opts)
+map_v('<', '<gv', opts)
+map_v('>', '>gv', opts)

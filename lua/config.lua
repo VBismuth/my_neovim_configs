@@ -1,6 +1,6 @@
 --  Netrw disabling for nvim-tree plugin
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 0
+vim.g.loaded_netrwPlugin = 0
 
 -- System
 vim.opt.clipboard = 'unnamedplus'
@@ -22,7 +22,7 @@ vim.opt.expandtab = true
 
 -- UI
 vim.opt.number = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
